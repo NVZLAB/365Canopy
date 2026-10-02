@@ -89,3 +89,7 @@ Historical [checkpoint notes](docs/checkpoint-1.md) describe an earlier, incompl
 The current desktop uses the [delegated collector](docs/delegated-checkpoint.md).
 
 Inspired by 365Lantern. Broader Microsoft 365 visibility and future integration remain design directions.
+
+The [dependency review](licenses/DEPENDENCY_REVIEW.txt) records vendor-hash verification,
+known-advisory checks and an unresolved licensing issue for the fully bundled installer.
+No public installer asset is available while its distribution route is being resolved.

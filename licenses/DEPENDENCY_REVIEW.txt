@@ -1,0 +1,44 @@
+365Canopy dependency review - 2 October 2026
+
+PROVENANCE
+All 82 DLL/SO files in the PnP.PowerShell 3.4.1 module match the official PowerShell
+Gallery archive. The module and archive hashes are recorded in dependency-review.json.
+Package archives for standard managed dependencies were fetched from NuGet's official
+flat-container endpoint and compared by binary hash where package versions were resolved.
+Assembly informational versions are not always NuGet package versions: several libraries
+with informational version 8.0.10 actually came from packages 8.0.1 or 8.0.2.
+PnP Core and Framework include nightly builds; their assembly labels do not fully identify
+the exact nightly NuGet revision. The vendor module archive verifies those shipped binaries.
+
+KNOWN VULNERABILITIES
+NuGet's base and update advisory feeds were retrieved on 2 October 2026. Ninety-two
+identified runtime/module package-version pairs were evaluated with NuGet's own semantic
+version/range implementation. No matching advisory was returned. PnP Core/Framework had
+no entries in these feeds at review time. This is a dated known-advisory check, not a
+security certification or a guarantee about unreported vulnerabilities.
+
+LICENSING
+Most managed libraries declare MIT terms. Portable.Xaml includes Mono/author MIT X11
+notices. PowerShell and .NET runtime notice/license files must remain with any redistributable
+runtime package. Third-party copyrights are not replaced by Canopy's MIT source license.
+
+Microsoft.Identity.Client.NativeInterop 0.20.6 carries proprietary Microsoft terms rather
+than MIT. Its included LICENSE has no redistribution grant established by this review.
+A fully bundled installer should not be released without resolving that permission.
+
+Microsoft.SharePointOnline.CSOM 16.1.27515.12000 points to the Microsoft SharePoint Client
+Components terms. Those contain distribution conditions, including end-user protections,
+and cannot be treated as blanket MIT redistribution.
+
+The recommended alpha route is to distribute Canopy and reviewed open-source runtimes,
+then obtain PnP directly from its publisher in an explicit dependency-setup step. Users
+review upstream component terms before choosing setup. No tenant credentials are involved.
+
+PRIMARY SOURCES
+https://www.powershellgallery.com/packages/PnP.PowerShell/3.4.1
+https://api.nuget.org/v3/vulnerabilities/index.json
+https://learn.microsoft.com/nuget/api/vulnerability-info
+https://www.nuget.org/packages/Microsoft.Identity.Client.NativeInterop/0.20.6
+https://github.com/SharePoint/sp-dev-docs/blob/main/assets/MicrosoftSharePointClientComponentsEULA.docx
+https://github.com/PowerShell/PowerShell/blob/v7.6.6/LICENSE.txt
+https://jrsoftware.org/files/is/license.txt

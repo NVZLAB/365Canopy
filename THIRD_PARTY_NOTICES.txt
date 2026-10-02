@@ -8,9 +8,10 @@ Copyright (c) 2026 .NET Foundation. MIT.
 Upstream: https://github.com/pnp/powershell/tree/v3.4.1
 Exact upstream license: licenses/PnP.PowerShell-3.4.1-LICENSE.txt
 The packaged module includes additional assemblies. Their inventory and hashes are
-recorded by the build in artifacts/desktop/package-files.json. A complete review of
-those transitive dependency notices remains a binary-release gate; the upstream
-module license alone is not evidence that every dependency is MIT licensed.
+recorded by the build in artifacts/desktop/package-files.json. The dependency review is recorded in licenses/DEPENDENCY_REVIEW.txt and
+licenses/dependency-review.json. It found no matching known advisories in the checked
+versions, but the native MSAL/CSOM redistribution terms require clarification before
+a fully bundled installer can be published. PnP's MIT license does not relicense them.
 
 PowerShell 7.6.6
 Upstream: https://github.com/PowerShell/PowerShell/tree/v7.6.6

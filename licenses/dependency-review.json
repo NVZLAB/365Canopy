@@ -1,0 +1,405 @@
+{
+  "reviewDate": "2026-10-02",
+  "module": {
+    "name": "PnP.PowerShell",
+    "version": "3.4.1",
+    "galleryArchiveSha256": "82062bd1da5464bffac78113ed85355c42225fbace5cb5681e759c45a1b2deb6",
+    "verifiedBinaries": 82,
+    "provenance": "All module DLL and SO hashes match the official Gallery archive."
+  },
+  "auditSource": "https://api.nuget.org/v3/vulnerabilities/index.json",
+  "advisorySnapshot": [
+    {
+      "name": "base",
+      "updated": "2026-09-26T05:43:06.7863496Z",
+      "sha256": "c65988e60203108ee85b44b5c3a4d2f5efc78e0f56cf508bdc6b02c991a7c098"
+    },
+    {
+      "name": "update",
+      "updated": "2026-10-02T05:43:41.1378561Z",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    }
+  ],
+  "checkedPackageVersions": [
+    {
+      "package": "anglesharp",
+      "version": "1.5.2"
+    },
+    {
+      "package": "anglesharp.css",
+      "version": "1.0.0"
+    },
+    {
+      "package": "humanizer.core",
+      "version": "2.14.1"
+    },
+    {
+      "package": "json.more.net",
+      "version": "2.1.1"
+    },
+    {
+      "package": "jsonpointer.net",
+      "version": "5.3.1"
+    },
+    {
+      "package": "jsonschema.net",
+      "version": "7.4.0"
+    },
+    {
+      "package": "markdig.signed",
+      "version": "0.44.0"
+    },
+    {
+      "package": "microsoft.applicationinsights",
+      "version": "2.21.0"
+    },
+    {
+      "package": "microsoft.applicationinsights",
+      "version": "2.23.0"
+    },
+    {
+      "package": "microsoft.bcl.asyncinterfaces",
+      "version": "10.0.5"
+    },
+    {
+      "package": "microsoft.bcl.cryptography",
+      "version": "9.0.5"
+    },
+    {
+      "package": "microsoft.bcl.timeprovider",
+      "version": "8.0.1"
+    },
+    {
+      "package": "microsoft.codeanalysis.common",
+      "version": "5.0.0"
+    },
+    {
+      "package": "microsoft.codeanalysis.csharp",
+      "version": "5.0.0"
+    },
+    {
+      "package": "microsoft.extensions.caching.abstractions",
+      "version": "8.0.0"
+    },
+    {
+      "package": "microsoft.extensions.caching.memory",
+      "version": "8.0.1"
+    },
+    {
+      "package": "microsoft.extensions.configuration",
+      "version": "8.0.0"
+    },
+    {
+      "package": "microsoft.extensions.configuration.abstractions",
+      "version": "8.0.0"
+    },
+    {
+      "package": "microsoft.extensions.configuration.binder",
+      "version": "8.0.0"
+    },
+    {
+      "package": "microsoft.extensions.dependencyinjection",
+      "version": "8.0.1"
+    },
+    {
+      "package": "microsoft.extensions.dependencyinjection.abstractions",
+      "version": "8.0.2"
+    },
+    {
+      "package": "microsoft.extensions.diagnostics",
+      "version": "8.0.1"
+    },
+    {
+      "package": "microsoft.extensions.diagnostics.abstractions",
+      "version": "8.0.1"
+    },
+    {
+      "package": "microsoft.extensions.http",
+      "version": "8.0.1"
+    },
+    {
+      "package": "microsoft.extensions.logging",
+      "version": "8.0.1"
+    },
+    {
+      "package": "microsoft.extensions.logging.abstractions",
+      "version": "8.0.2"
+    },
+    {
+      "package": "microsoft.extensions.objectpool",
+      "version": "10.0.5"
+    },
+    {
+      "package": "microsoft.extensions.options",
+      "version": "8.0.2"
+    },
+    {
+      "package": "microsoft.extensions.options.configurationextensions",
+      "version": "8.0.0"
+    },
+    {
+      "package": "microsoft.extensions.primitives",
+      "version": "8.0.0"
+    },
+    {
+      "package": "microsoft.identity.client",
+      "version": "4.85.2"
+    },
+    {
+      "package": "microsoft.identity.client.broker",
+      "version": "4.85.2"
+    },
+    {
+      "package": "microsoft.identity.client.extensions.msal",
+      "version": "4.85.2"
+    },
+    {
+      "package": "microsoft.identity.client.nativeinterop",
+      "version": "0.20.6"
+    },
+    {
+      "package": "microsoft.identitymodel.abstractions",
+      "version": "8.14.0"
+    },
+    {
+      "package": "microsoft.identitymodel.jsonwebtokens",
+      "version": "8.2.0"
+    },
+    {
+      "package": "microsoft.identitymodel.logging",
+      "version": "8.2.0"
+    },
+    {
+      "package": "microsoft.identitymodel.tokens",
+      "version": "8.2.0"
+    },
+    {
+      "package": "microsoft.management.infrastructure",
+      "version": "3.0.0"
+    },
+    {
+      "package": "microsoft.management.infrastructure.runtime.win",
+      "version": "3.0.0"
+    },
+    {
+      "package": "microsoft.netcore.app.runtime.win-x64",
+      "version": "10.0.12"
+    },
+    {
+      "package": "microsoft.powershell.markdownrender",
+      "version": "7.2.1"
+    },
+    {
+      "package": "microsoft.powershell.native",
+      "version": "7.4.0"
+    },
+    {
+      "package": "microsoft.security.extensions",
+      "version": "1.2.0"
+    },
+    {
+      "package": "microsoft.sharepointonline.csom",
+      "version": "16.1.27515.12000"
+    },
+    {
+      "package": "microsoft.win32.registry.accesscontrol",
+      "version": "8.0.0"
+    },
+    {
+      "package": "microsoft.windows.compatibility",
+      "version": "10.0.5"
+    },
+    {
+      "package": "microsoft.windowsdesktop.app.runtime.win-x64",
+      "version": "10.0.12"
+    },
+    {
+      "package": "newtonsoft.json",
+      "version": "13.0.3"
+    },
+    {
+      "package": "newtonsoft.json",
+      "version": "13.0.4"
+    },
+    {
+      "package": "pnp.core",
+      "version": "1.18.1-nightly"
+    },
+    {
+      "package": "pnp.core.admin",
+      "version": "1.18.1-nightly"
+    },
+    {
+      "package": "pnp.core.auth",
+      "version": "1.18.1-nightly"
+    },
+    {
+      "package": "pnp.framework",
+      "version": "1.21.1-nightly"
+    },
+    {
+      "package": "portable.xaml",
+      "version": "0.26.0"
+    },
+    {
+      "package": "runtime.native.system.data.sqlclient.sni",
+      "version": "4.4.0"
+    },
+    {
+      "package": "runtime.win-x64.runtime.native.system.data.sqlclient.sni",
+      "version": "4.4.0"
+    },
+    {
+      "package": "system.codedom",
+      "version": "8.0.0"
+    },
+    {
+      "package": "system.componentmodel.composition",
+      "version": "10.0.5"
+    },
+    {
+      "package": "system.componentmodel.composition.registration",
+      "version": "10.0.5"
+    },
+    {
+      "package": "system.configuration.configurationmanager",
+      "version": "8.0.1"
+    },
+    {
+      "package": "system.data.odbc",
+      "version": "10.0.5"
+    },
+    {
+      "package": "system.data.oledb",
+      "version": "10.0.5"
+    },
+    {
+      "package": "system.data.sqlclient",
+      "version": "4.9.1"
+    },
+    {
+      "package": "system.diagnostics.eventlog",
+      "version": "8.0.1"
+    },
+    {
+      "package": "system.directoryservices",
+      "version": "8.0.0"
+    },
+    {
+      "package": "system.directoryservices.accountmanagement",
+      "version": "10.0.5"
+    },
+    {
+      "package": "system.directoryservices.protocols",
+      "version": "10.0.5"
+    },
+    {
+      "package": "system.formats.asn1",
+      "version": "9.0.5"
+    },
+    {
+      "package": "system.identitymodel.tokens.jwt",
+      "version": "8.2.0"
+    },
+    {
+      "package": "system.io.packaging",
+      "version": "8.0.1"
+    },
+    {
+      "package": "system.io.ports",
+      "version": "10.0.5"
+    },
+    {
+      "package": "system.management",
+      "version": "10.0.5"
+    },
+    {
+      "package": "system.management",
+      "version": "8.0.0"
+    },
+    {
+      "package": "system.management.automation",
+      "version": "7.6.6"
+    },
+    {
+      "package": "system.net.http.winhttphandler",
+      "version": "10.0.5"
+    },
+    {
+      "package": "system.reflection.context",
+      "version": "10.0.5"
+    },
+    {
+      "package": "system.runtime.caching",
+      "version": "10.0.5"
+    },
+    {
+      "package": "system.security.cryptography.pkcs",
+      "version": "8.0.0"
+    },
+    {
+      "package": "system.security.cryptography.protecteddata",
+      "version": "8.0.0"
+    },
+    {
+      "package": "system.security.permissions",
+      "version": "8.0.0"
+    },
+    {
+      "package": "system.servicemodel.http",
+      "version": "10.0.652802"
+    },
+    {
+      "package": "system.servicemodel.netframingbase",
+      "version": "10.0.652802"
+    },
+    {
+      "package": "system.servicemodel.nettcp",
+      "version": "10.0.652802"
+    },
+    {
+      "package": "system.servicemodel.primitives",
+      "version": "10.0.652802"
+    },
+    {
+      "package": "system.servicemodel.syndication",
+      "version": "10.0.5"
+    },
+    {
+      "package": "system.serviceprocess.servicecontroller",
+      "version": "10.0.5"
+    },
+    {
+      "package": "system.speech",
+      "version": "10.0.5"
+    },
+    {
+      "package": "system.web.services.description",
+      "version": "8.1.2"
+    },
+    {
+      "package": "system.windows.extensions",
+      "version": "8.0.0"
+    },
+    {
+      "package": "textcopy",
+      "version": "6.2.1"
+    },
+    {
+      "package": "timezoneconverter",
+      "version": "7.2.0"
+    }
+  ],
+  "knownAdvisoryMatches": [],
+  "limitations": [
+    "Package/version inventory includes runtime manifests and assembly informational versions; PnP Core/Framework nightly package versions are not fully resolved by assembly labels.",
+    "No PnP Core/Framework entries were present in the advisory feeds at review time. No known matching advisory is not a guarantee of safety.",
+    "Archive-hash verification establishes equality to vendor packages, not independent source reproducibility."
+  ],
+  "redistributionReview": {
+    "fullyBundledInstaller": "hold",
+    "msalNative": "LicenseRef-Microsoft-MSAL-Native terms do not establish redistribution rights in this review.",
+    "csom": "Microsoft SharePoint Client Components terms include distribution requirements and end-user terms.",
+    "recommendedRoute": "Download PnP directly from its publisher during an explicit one-time dependency setup."
+  }
+}
