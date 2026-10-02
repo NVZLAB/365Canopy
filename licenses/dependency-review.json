@@ -400,6 +400,7 @@
     "fullyBundledInstaller": "hold",
     "msalNative": "LicenseRef-Microsoft-MSAL-Native terms do not establish redistribution rights in this review.",
     "csom": "Microsoft SharePoint Client Components terms include distribution requirements and end-user terms.",
-    "recommendedRoute": "Download PnP directly from its publisher during an explicit one-time dependency setup."
+    "recommendedRoute": "Download PnP directly from its publisher during an explicit one-time dependency setup.",
+    "alpha8Route": "Implemented: Canopy/runtime-only installer; explicit publisher download with pinned SHA-256 and upstream terms links."
   }
 }

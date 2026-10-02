@@ -18,6 +18,7 @@ if ($Check) {
     if ($PSVersionTable.PSVersion.Major -ge 7) { & (Join-Path $PSScriptRoot 'tests/Delegated.Checks.ps1') }
     & (Join-Path $PSScriptRoot 'tests/Collector.ReadOnly.Checks.ps1')
     & (Join-Path $PSScriptRoot 'tests/ItemInventory.Checks.ps1')
+    if ($PSVersionTable.PSVersion.Major -ge 7) { & (Join-Path $PSScriptRoot 'tests/Dependency.Checks.ps1') }
     & (Join-Path $PSScriptRoot 'tests/PublicationPrivacy.Checks.ps1')
     return
 }

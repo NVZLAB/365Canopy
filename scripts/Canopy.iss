@@ -1,7 +1,7 @@
 [Setup]
 AppId={{A2290B44-421D-42F2-9F06-7C9E8725D6CB}
 AppName=365Canopy Preview
-AppVersion=0.1.0-alpha.7
+AppVersion=0.1.0-alpha.8
 AppPublisher=NVZLAB
 DefaultDirName={localappdata}\Programs\365Canopy
 DefaultGroupName=365Canopy
@@ -9,7 +9,7 @@ PrivilegesRequired=lowest
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 OutputDir={#Output}
-OutputBaseFilename=365Canopy-0.1.0-alpha.7-Setup
+OutputBaseFilename=365Canopy-0.1.0-alpha.8-Setup
 Compression=lzma2/fast
 SolidCompression=yes
 SetupIconFile=../design/assets/canopy.ico

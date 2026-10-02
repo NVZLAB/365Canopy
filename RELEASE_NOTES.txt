@@ -1,4 +1,4 @@
-365Canopy 0.1.0-alpha.7 - proposed GitHub prerelease
+365Canopy 0.1.0-alpha.8 - first public alpha release
 
 Windows x64 desktop preview for observed SharePoint document-library permissions.
 
@@ -7,19 +7,34 @@ classic SharePoint and Entra group members/owners; resolved basic profiles where
 HTML permission trees, CSV and JSON; encrypted named local connections; system/light/dark
 themes; swaying audit indicator; and canopy executable/window/installer icons.
 
-Tenant setup: operators configure their own native public client. Consent includes
-write-capable delegated SharePoint Full Control; the collector uses read operations.
-The application does not create tenant registrations or change permissions during audits.
+ONE-TIME SETUP
+Installer includes .NET and official PowerShell 7.6.6, but excludes PnP and its Microsoft
+components. Choose Set up audit dependency, review the linked upstream component terms,
+then download PnP.PowerShell 3.4.1 directly from PowerShell Gallery. Internet access is
+required for this setup. The reviewed archive SHA-256 is verified before extraction/import.
+Future audits reuse the download under the current Windows account's LocalAppData.
+Uninstall leaves downloaded dependencies and encrypted saved profiles in place.
 
-Known limits: file contents and sharing-link details are not collected; policy-aware
-effective access is not evaluated; inaccessible/hidden membership and failed reads can
-leave gaps. File discovery is bounded at 40,000 items. Review Coverage with every result.
+TENANT SETUP
+Configure your own native public-client registration and delegated consent. Consent
+includes write-capable SharePoint Full Control; the collector uses read operations.
+Canopy does not create tenant registrations, grant consent or change permissions in audits.
+See README and docs/delegated-checkpoint.md for instructions.
 
-Installer is unsigned. Clean-machine install/uninstall, complete dependency notice review,
-and bundled-module vulnerability verification remain outstanding. Desktop project restore
-audit completed without warnings after a network-enabled retry; it does not audit the
-separately bundled PnP assemblies. Functional and privacy checks
-passed in development. User testing succeeded; this does not certify every tenant scenario.
+DEPENDENCY REVIEW
+All 82 PnP DLL/SO files matched the official Gallery archive. Ninety-two identified
+runtime/module package-version pairs had no matching known advisories in the official
+NuGet feed checked 2 October 2026. Nightly package labels are not fully resolved;
+this dated review does not cover unknown vulnerabilities or certify security.
+See licenses/DEPENDENCY_REVIEW.txt and licenses/dependency-review.json.
 
-Proposed release assets: setup executable and its SHA-256 sidecar, both from the same build.
-No live audit exports, tenant screenshots, registration identifiers or profiles are assets.
+KNOWN LIMITS
+Installer and app are unsigned previews; Windows may display a publisher warning.
+Clean-machine install/uninstall is not yet verified. File contents and sharing-link details
+are not collected; policy-aware effective access is not evaluated. Inaccessible/hidden
+membership and failed reads can leave gaps. Discovery is bounded at 40,000 items.
+Review Coverage with every result. Functional/privacy checks passed in development;
+user testing of earlier builds does not certify every tenant scenario.
+
+Assets: setup executable and matching SHA-256 sidecar. No live audit exports, tenant
+screenshots, registration identifiers or saved profiles are included.

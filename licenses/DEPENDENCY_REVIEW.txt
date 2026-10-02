@@ -30,7 +30,7 @@ Microsoft.SharePointOnline.CSOM 16.1.27515.12000 points to the Microsoft SharePo
 Components terms. Those contain distribution conditions, including end-user protections,
 and cannot be treated as blanket MIT redistribution.
 
-The recommended alpha route is to distribute Canopy and reviewed open-source runtimes,
+The implemented alpha.8 route is to distribute Canopy and reviewed open-source runtimes,
 then obtain PnP directly from its publisher in an explicit dependency-setup step. Users
 review upstream component terms before choosing setup. No tenant credentials are involved.
 
@@ -42,3 +42,8 @@ https://www.nuget.org/packages/Microsoft.Identity.Client.NativeInterop/0.20.6
 https://github.com/SharePoint/sp-dev-docs/blob/main/assets/MicrosoftSharePointClientComponentsEULA.docx
 https://github.com/PowerShell/PowerShell/blob/v7.6.6/LICENSE.txt
 https://jrsoftware.org/files/is/license.txt
+
+ALPHA.8 DISTRIBUTION
+The installer excludes PnP, MSAL NativeInterop and CSOM. A build guard rejects these
+components in the payload. The app offers explicit one-time setup with upstream terms
+links and downloads the reviewed archive directly from PowerShell Gallery.

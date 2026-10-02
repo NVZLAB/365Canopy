@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([Parameter(Mandatory)][string]$SiteUrl,[Parameter(Mandatory)][guid]$TenantId,[Parameter(Mandatory)][guid]$ClientId,[Parameter(Mandatory)][string]$LibraryName,[string]$FolderSiteRelativeUrl,[switch]$RecursiveFolders,[switch]$IncludeFiles,[int]$MaxFolders=5000,[int]$MaxItems=40000,[string[]]$ExpectedAccount,[switch]$ForceAuthentication,[switch]$IncludeDirectoryMembership,[string]$ExportPath)
+param([Parameter(Mandatory)][string]$SiteUrl,[Parameter(Mandatory)][guid]$TenantId,[Parameter(Mandatory)][guid]$ClientId,[Parameter(Mandatory)][string]$LibraryName,[string]$FolderSiteRelativeUrl,[switch]$RecursiveFolders,[switch]$IncludeFiles,[int]$MaxFolders=5000,[int]$MaxItems=40000,[string[]]$ExpectedAccount,[switch]$ForceAuthentication,[switch]$IncludeDirectoryMembership,[string]$ExportPath,[string]$PnPModulePath)
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
 Import-Module (Join-Path $PSScriptRoot 'Canopy.Core.psm1') -Force
@@ -9,10 +9,10 @@ if ($IncludeFiles) { $RecursiveFolders=$true }
 $target=Resolve-CanopyTarget $SiteUrl
 if ($RecursiveFolders -and $FolderSiteRelativeUrl) { throw 'Choose recursive folders or a single selected folder.' }
 if ($MaxFolders -lt 1 -or $MaxItems -lt 1 -or $MaxItems -gt 40000) { throw 'Use positive limits; MaxItems cannot exceed 40000.' }
-$pnp=Join-Path $PSScriptRoot '../../work/modules/PnP.PowerShell/3.4.1/PnP.PowerShell.psd1'
+$pnp=if($PnPModulePath){$PnPModulePath}else{Join-Path $PSScriptRoot '../../work/modules/PnP.PowerShell/3.4.1/PnP.PowerShell.psd1'}
 Import-Module $pnp
 if ($ExportPath -and ((Test-Path -LiteralPath $ExportPath) -or !(Test-Path -LiteralPath ([IO.Path]::GetDirectoryName([IO.Path]::GetFullPath($ExportPath)))))) { throw 'Export requires a new filename in an existing directory.' }
-$audit=[ordered]@{schemaVersion='0.2-delegated';applicationVersion='0.1.0-alpha.7';auditId=[guid]::NewGuid().ToString();startedAt=[DateTime]::UtcNow.ToString('o');completedAt=$null;tenantId=$TenantId.ToString();clientId=$ClientId.ToString();accountObjectId=$null;scope=@{siteUrl=$target.SiteUrl;library=$LibraryName;depth='root web and selected library only';includeFiles=[bool]$IncludeFiles;itemLimit=$MaxItems};state='partial';resources=[Collections.Generic.List[object]]::new();grants=[Collections.Generic.List[object]]::new();sharePointGroups=[Collections.Generic.List[object]]::new();directoryGroups=@();coverage=[Collections.Generic.List[object]]::new()}
+$audit=[ordered]@{schemaVersion='0.2-delegated';applicationVersion='0.1.0-alpha.8';auditId=[guid]::NewGuid().ToString();startedAt=[DateTime]::UtcNow.ToString('o');completedAt=$null;tenantId=$TenantId.ToString();clientId=$ClientId.ToString();accountObjectId=$null;scope=@{siteUrl=$target.SiteUrl;library=$LibraryName;depth='root web and selected library only';includeFiles=[bool]$IncludeFiles;itemLimit=$MaxItems};state='partial';resources=[Collections.Generic.List[object]]::new();grants=[Collections.Generic.List[object]]::new();sharePointGroups=[Collections.Generic.List[object]]::new();directoryGroups=@();coverage=[Collections.Generic.List[object]]::new()}
 $connection=$null;$stage='Authentication';$web=$null;$list=$null
 function Coverage([string]$Operation,[string]$State,[string]$Reason) { $audit.coverage.Add([pscustomobject]@{operation=$Operation;state=$State;reason=$Reason;collectedAt=[DateTime]::UtcNow.ToString('o')}) }
 function Identity([string]$Resource,[string[]]$Audience) {

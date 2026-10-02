@@ -6,7 +6,7 @@
 its library, folders and optionally files, then follow permission grants through
 classic SharePoint groups and Microsoft Entra groups to the observed people.
 
-**Status: 0.1.0-alpha.7 - development preview.** This is observed permission evidence,
+**Status: 0.1.0-alpha.8 - development preview.** This is observed permission evidence,
 with explicit coverage gaps, rather than a complete effective-access evaluator.
 
 ![365Canopy Audit screen](docs/images/audit.png)
@@ -30,8 +30,8 @@ account with sufficient access to the target content. Admin directory roles alon
 ensure that all target content can be read.
 
 When a GitHub prerelease is available, download its setup executable and matching SHA-256
-file. The installer includes .NET, PowerShell and PnP; separate runtime installation is
-unnecessary. Preview executables are unsigned. See [desktop instructions](docs/desktop-preview.md).
+file. The installer includes .NET and PowerShell. Choose **Set up audit dependency** once to
+download pinned PnP.PowerShell directly from PowerShell Gallery after reviewing its component terms. Preview executables are unsigned. See [desktop instructions](docs/desktop-preview.md).
 
 1. Configure your own single-tenant native public-client registration with localhost redirect.
 2. Review and grant the delegated permissions described in [tenant setup](docs/delegated-checkpoint.md).
@@ -73,7 +73,7 @@ dotnet run --project tests/Canopy.ReportChecks
 ./scripts/Build-Desktop.ps1 -PowerShellRuntime 'C:/Tools/PowerShell-7.6.6'
 ```
 
-Override `-Dotnet`, `-InnoCompiler` or `-PnPModulePath` when necessary. The build has no dependency
+Override `-Dotnet`, `-InnoCompiler` when necessary. The build has no dependency
 on a sibling Lantern checkout. Outputs stay under ignored `artifacts/`; source publication uses
 an explicit allowlist through `scripts/Prepare-Publication.ps1`.
 
@@ -83,13 +83,17 @@ an explicit allowlist through `scripts/Prepare-Publication.ps1`.
 
 Development checks include synthetic traversal, token/account binding, membership cycles,
 unknown inheritance, export escaping and read-operation regression guards. The app has passed
-live development audits and user testing; clean-machine installation, publisher signing,
-complete transitive dependency notices and bundled-module vulnerability verification remain release gates. The desktop project restore audit completed without warnings after a network-enabled retry; it does not cover the separately bundled PnP assemblies.
+live development audits and user testing; clean-machine installation and publisher signing remain outstanding. The dependency review
+checked 92 identified runtime/module package-version pairs against the official NuGet advisory
+feed on 2 October 2026 and found no matching known advisories. Nightly package identification
+and unreported vulnerabilities remain limitations.
 Historical [checkpoint notes](docs/checkpoint-1.md) describe an earlier, incomplete authentication spike.
 The current desktop uses the [delegated collector](docs/delegated-checkpoint.md).
 
 Inspired by 365Lantern. Broader Microsoft 365 visibility and future integration remain design directions.
 
 The [dependency review](licenses/DEPENDENCY_REVIEW.txt) records vendor-hash verification,
-known-advisory checks and an unresolved licensing issue for the fully bundled installer.
-No public installer asset is available while its distribution route is being resolved.
+known-advisory checks and component license boundaries. Alpha.8 excludes PnP and its
+Microsoft components from the installer; dependency setup obtains them directly from the publisher.
+The downloaded module is kept at `%LOCALAPPDATA%/365Canopy/modules/PnP.PowerShell/3.4.1`
+and reused until that folder is removed. Uninstall leaves this download and saved profiles in place.
