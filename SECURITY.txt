@@ -1,0 +1,15 @@
+Security and privacy reporting
+
+Do not attach real tenant audit exports, identities, site URLs, registration files,
+credentials or tokens to public issues. Use synthetic examples for reproducible bugs.
+For a vulnerability, use GitHub private vulnerability reporting if enabled, or agree
+a private reporting channel with the NVZLAB maintainers before sharing sensitive evidence.
+
+The current alpha has no promise of enterprise support or complete effective-access
+coverage. Tenant administrators must review delegated consent and target-site access.
+Read-operation guards limit collector code paths; they do not reduce Full Control token
+capability. Verify coverage before using a report to make an access decision.
+
+Never force-add work/, exports/, artifacts/, bin/ or obj/. Publication preparation uses
+an allowlist and privacy checks. These checks are regression guards, not a comprehensive
+secret scanner. Review staged content and Git history before a public push.

@@ -1,0 +1,16 @@
+work/
+exports/
+*.user
+bin/
+obj/
+artifacts/
+# Explicit exports may be saved outside the private working directories.
+365Canopy-audit*
+audit.json
+delegated-audit*.json
+canopy-registration.json
+.env
+.env.*
+*.log
+sites.protected
+sites-*.tmp

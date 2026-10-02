@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF><ApplicationIcon>../../design/assets/canopy.ico</ApplicationIcon><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><AssemblyName>365Canopy</AssemblyName><Version>0.1.0-alpha.7</Version><NoWarn>$(NoWarn);WPF0001</NoWarn></PropertyGroup>
+  <ItemGroup><Resource Include="../../design/assets/canopy-logo-pillowy.png" Link="Assets/Canopy.png" /><Resource Include="../../design/assets/canopy.ico" Link="Assets/Canopy.ico" /></ItemGroup>
+</Project>

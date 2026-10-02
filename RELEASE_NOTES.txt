@@ -1,0 +1,25 @@
+365Canopy 0.1.0-alpha.7 - proposed GitHub prerelease
+
+Windows x64 desktop preview for observed SharePoint document-library permissions.
+
+Includes recursive folders; optional file-level review; permission-source inheritance;
+classic SharePoint and Entra group members/owners; resolved basic profiles where allowed;
+HTML permission trees, CSV and JSON; encrypted named local connections; system/light/dark
+themes; swaying audit indicator; and canopy executable/window/installer icons.
+
+Tenant setup: operators configure their own native public client. Consent includes
+write-capable delegated SharePoint Full Control; the collector uses read operations.
+The application does not create tenant registrations or change permissions during audits.
+
+Known limits: file contents and sharing-link details are not collected; policy-aware
+effective access is not evaluated; inaccessible/hidden membership and failed reads can
+leave gaps. File discovery is bounded at 40,000 items. Review Coverage with every result.
+
+Installer is unsigned. Clean-machine install/uninstall, complete dependency notice review,
+and bundled-module vulnerability verification remain outstanding. Desktop project restore
+audit completed without warnings after a network-enabled retry; it does not audit the
+separately bundled PnP assemblies. Functional and privacy checks
+passed in development. User testing succeeded; this does not certify every tenant scenario.
+
+Proposed release assets: setup executable and its SHA-256 sidecar, both from the same build.
+No live audit exports, tenant screenshots, registration identifiers or profiles are assets.

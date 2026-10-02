@@ -1,0 +1,31 @@
+365Canopy third-party components
+
+365Canopy source is licensed under MIT by NVZLAB. Third-party components retain
+their own copyrights and license terms; Canopy's MIT license does not replace them.
+
+PnP.PowerShell 3.4.1
+Copyright (c) 2026 .NET Foundation. MIT.
+Upstream: https://github.com/pnp/powershell/tree/v3.4.1
+Exact upstream license: licenses/PnP.PowerShell-3.4.1-LICENSE.txt
+The packaged module includes additional assemblies. Their inventory and hashes are
+recorded by the build in artifacts/desktop/package-files.json. A complete review of
+those transitive dependency notices remains a binary-release gate; the upstream
+module license alone is not evidence that every dependency is MIT licensed.
+
+PowerShell 7.6.6
+Upstream: https://github.com/PowerShell/PowerShell/tree/v7.6.6
+Official runtime includes LICENSE.txt and ThirdPartyNotices.txt. Both remain inside
+runtime/powershell in the application package. Preserve the complete runtime folder.
+
+.NET 10 / Windows Desktop runtime
+The app is published self-contained. The build copies the exact runtime-pack license
+files and available third-party notices into licenses/Microsoft.NETCore.App and
+licenses/Microsoft.WindowsDesktop.App in the application package. Runtime versions
+are recorded in 365Canopy.runtimeconfig.json; dependency versions are in its deps.json.
+
+Inno Setup 6 is build tooling. Its generated installer/uninstaller is covered by
+Inno Setup's license; see https://jrsoftware.org/files/is/license.txt .
+No Inno compiler installation is included in the Canopy source or app package.
+
+The older command-line authentication spike downloads Microsoft modules separately
+through Setup-Checkpoint.ps1; those modules are not bundled in the desktop package.
