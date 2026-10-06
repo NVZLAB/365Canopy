@@ -1,6 +1,15 @@
-365Canopy 0.1.0-alpha.8 - first public alpha release
+365Canopy 0.1.0-alpha.9 - app registration setup guide
 
 Windows x64 desktop preview for observed SharePoint document-library permissions.
+
+NEW IN ALPHA.9
+Audit now includes an App registration setup button beside the Site details heading.
+It opens an inline guide covering single-tenant desktop registration, localhost redirect,
+delegated permissions, admin consent and tenant/client ID mapping. Links open Entra
+admin center and official Microsoft guidance. Instructions remain available offline.
+The guide starts collapsed so Run administrator audit stays visible.
+
+Validated in light/dark layouts, packaged startup/import and user testing.
 
 Includes recursive folders; optional file-level review; permission-source inheritance;
 classic SharePoint and Entra group members/owners; resolved basic profiles where allowed;

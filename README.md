@@ -6,7 +6,7 @@
 its library, folders and optionally files, then follow permission grants through
 classic SharePoint groups and Microsoft Entra groups to the observed people.
 
-**Status: 0.1.0-alpha.8 - development preview.** This is observed permission evidence,
+**Status: 0.1.0-alpha.9 - development preview.** This is observed permission evidence,
 with explicit coverage gaps, rather than a complete effective-access evaluator.
 
 ![365Canopy Audit screen](docs/images/audit.png)
@@ -33,7 +33,7 @@ When a GitHub prerelease is available, download its setup executable and matchin
 file. The installer includes .NET and PowerShell. Choose **Set up audit dependency** once to
 download pinned PnP.PowerShell directly from PowerShell Gallery after reviewing its component terms. Preview executables are unsigned. See [desktop instructions](docs/desktop-preview.md).
 
-1. Configure your own single-tenant native public-client registration with localhost redirect.
+1. On Audit, choose **App registration setup…** for the single-tenant registration checklist and localhost redirect configuration.
 2. Review and grant the delegated permissions described in [tenant setup](docs/delegated-checkpoint.md).
 3. Enter your site URL, tenant GUID, public client GUID and library name in Audit.
 4. Select the scope and run the administrator audit. Microsoft handles sign-in and MFA.
