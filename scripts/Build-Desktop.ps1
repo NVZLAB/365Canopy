@@ -30,7 +30,7 @@ New-Item $runtime -ItemType Directory -Force | Out-Null
 Get-ChildItem -LiteralPath $PowerShellRuntime -Force | Copy-Item -Destination $runtime -Recurse -Force
 $collector=Join-Path $package 'src/Canopy.Checkpoint'
 New-Item $collector -ItemType Directory -Force | Out-Null
-foreach($file in @('Canopy.Core.psm1','Canopy.Delegated.psm1','Canopy.Items.psm1','Collect-Delegated.ps1','Desktop-Audit.ps1','Canopy.Dependency.psm1','Setup-Dependency.ps1')){Copy-Item -LiteralPath (Join-Path $root "src/Canopy.Checkpoint/$file") -Destination $collector -Force}
+foreach($file in @('Canopy.Core.psm1','Canopy.Delegated.psm1','Canopy.Items.psm1','Collect-Delegated.ps1','Collect-OneDrives.ps1','Desktop-Audit.ps1','Canopy.Dependency.psm1','Setup-Dependency.ps1')){Copy-Item -LiteralPath (Join-Path $root "src/Canopy.Checkpoint/$file") -Destination $collector -Force}
 Copy-Item -LiteralPath (Join-Path $root 'docs/desktop-preview.md') -Destination (Join-Path $package 'README.txt') -Force
 $licenses=Join-Path $package 'licenses'
 New-Item -ItemType Directory -Path $licenses -Force | Out-Null
@@ -55,7 +55,7 @@ if($forbidden.Count){throw 'Package contains dependencies that must be downloade
 Get-ChildItem $package -File -Recurse | ForEach-Object {@{path=[IO.Path]::GetRelativePath($package,$_.FullName);sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash}} | ConvertTo-Json | Set-Content (Join-Path $root 'artifacts/desktop/package-files.json')
 & $InnoCompiler /Qp ('/DPayload='+$package) ('/DOutput='+ (Join-Path $root 'artifacts/desktop')) (Join-Path $PSScriptRoot 'Canopy.iss')
 if($LASTEXITCODE){throw 'Installer compilation failed.'}
-$installer=Join-Path $root 'artifacts/desktop/365Canopy-0.1.0-alpha.9-Setup.exe'
+$installer=Join-Path $root 'artifacts/desktop/365Canopy-0.1.0-alpha.10-Setup.exe'
 $digest=(Get-FileHash -LiteralPath $installer -Algorithm SHA256).Hash
 [IO.File]::WriteAllText($installer+'.sha256',$digest+'  '+[IO.Path]::GetFileName($installer)+[Environment]::NewLine)
 Get-FileHash -LiteralPath $installer -Algorithm SHA256 | Format-List

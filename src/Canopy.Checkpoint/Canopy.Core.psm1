@@ -1,9 +1,13 @@
 Set-StrictMode -Version Latest
 
 function Resolve-CanopyTarget {
-    param([Parameter(Mandatory)][string]$SiteUrl, [string]$AdminUrl)
+    param([Parameter(Mandatory)][string]$SiteUrl, [string]$AdminUrl, [switch]$AllowOneDrive)
     $site = $null
-    if (![uri]::TryCreate($SiteUrl, [UriKind]::Absolute, [ref]$site) -or $site.Scheme -ne 'https' -or $site.Port -ne 443 -or $site.UserInfo -or $site.Query -or $site.Fragment -or $site.Host -notmatch '^[a-z0-9][a-z0-9-]*\.sharepoint\.com$' -or $site.Host -match '-(admin|my)\.sharepoint\.com$') { throw 'Use an HTTPS commercial-cloud SharePoint site collection URL without a query or fragment.' }
+    if (![uri]::TryCreate($SiteUrl, [UriKind]::Absolute, [ref]$site) -or $site.Scheme -ne 'https' -or $site.Port -ne 443 -or $site.UserInfo -or $site.Query -or $site.Fragment -or $site.Host -notmatch '^[a-z0-9][a-z0-9-]*\.sharepoint\.com$' -or $site.Host -match '-admin\.sharepoint\.com$' -or (!$AllowOneDrive -and $site.Host -match '-my\.sharepoint\.com$')) { throw 'Use an HTTPS commercial-cloud SharePoint site collection URL without a query or fragment.' }
+    if ($site.Host -match '-my\.sharepoint\.com$') {
+        if ($AdminUrl -or $site.AbsolutePath -notmatch '^/personal/[a-z0-9_-]+/?$') { throw 'Provide a OneDrive personal site root.' }
+        return [pscustomobject]@{SiteUrl=$site.AbsoluteUri.TrimEnd('/');AdminUrl=$null}
+    }
     if ($site.AbsolutePath.TrimEnd('/') -ne '' -and $site.AbsolutePath -notmatch '^/(sites|teams)/[^/]+/?$') { throw 'Provide the site collection root, not a library, item or subsite URL.' }
     $expected = 'https://' + $site.Host.Replace('.sharepoint.com', '-admin.sharepoint.com')
     if ($AdminUrl -and $AdminUrl.TrimEnd('/') -ne $expected) { throw 'Admin URL must match the selected site host. Multi-geo and sovereign clouds are outside this spike.' }

@@ -6,7 +6,7 @@
 its library, folders and optionally files, then follow permission grants through
 classic SharePoint groups and Microsoft Entra groups to the observed people.
 
-**Status: 0.1.0-alpha.9 - development preview.** This is observed permission evidence,
+**Status: 0.1.0-alpha.10 - development preview.** This is observed permission evidence,
 with explicit coverage gaps, rather than a complete effective-access evaluator.
 
 ![365Canopy Audit screen](docs/images/audit.png)
@@ -14,6 +14,7 @@ with explicit coverage gaps, rather than a complete effective-access evaluator.
 ## What it does
 
 - Administrator sign-in through Microsoft's interactive authentication; no client secret or certificate.
+- Tenant OneDrive discovery and batch permissions review for provisioned drives the signed-in administrator can access.
 - Recursive folder inventory and optional file-level permission review, off by default.
 - Unique/inherited permission sources, classic SharePoint groups, Entra members/owners and available usernames.
 - Separate Audit, Results, Coverage and Report pages; automatic Results navigation on completion.

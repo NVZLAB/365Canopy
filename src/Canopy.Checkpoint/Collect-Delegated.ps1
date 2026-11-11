@@ -1,18 +1,18 @@
 [CmdletBinding()]
-param([Parameter(Mandatory)][string]$SiteUrl,[Parameter(Mandatory)][guid]$TenantId,[Parameter(Mandatory)][guid]$ClientId,[Parameter(Mandatory)][string]$LibraryName,[string]$FolderSiteRelativeUrl,[switch]$RecursiveFolders,[switch]$IncludeFiles,[int]$MaxFolders=5000,[int]$MaxItems=40000,[string[]]$ExpectedAccount,[switch]$ForceAuthentication,[switch]$IncludeDirectoryMembership,[string]$ExportPath,[string]$PnPModulePath)
+param([Parameter(Mandatory)][string]$SiteUrl,[Parameter(Mandatory)][guid]$TenantId,[Parameter(Mandatory)][guid]$ClientId,[Parameter(Mandatory)][string]$LibraryName,[string]$FolderSiteRelativeUrl,[switch]$RecursiveFolders,[switch]$IncludeFiles,[int]$MaxFolders=5000,[int]$MaxItems=40000,[string[]]$ExpectedAccount,[switch]$ForceAuthentication,[switch]$IncludeDirectoryMembership,[string]$ExportPath,[string]$PnPModulePath,[object]$ExistingConnection,[string]$ExpectedObjectId)
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
 Import-Module (Join-Path $PSScriptRoot 'Canopy.Core.psm1') -Force
 Import-Module (Join-Path $PSScriptRoot 'Canopy.Delegated.psm1') -Force
 Import-Module (Join-Path $PSScriptRoot 'Canopy.Items.psm1') -Force
 if ($IncludeFiles) { $RecursiveFolders=$true }
-$target=Resolve-CanopyTarget $SiteUrl
+$target=Resolve-CanopyTarget $SiteUrl -AllowOneDrive:([bool]$ExistingConnection)
 if ($RecursiveFolders -and $FolderSiteRelativeUrl) { throw 'Choose recursive folders or a single selected folder.' }
 if ($MaxFolders -lt 1 -or $MaxItems -lt 1 -or $MaxItems -gt 40000) { throw 'Use positive limits; MaxItems cannot exceed 40000.' }
 $pnp=if($PnPModulePath){$PnPModulePath}else{Join-Path $PSScriptRoot '../../work/modules/PnP.PowerShell/3.4.1/PnP.PowerShell.psd1'}
 Import-Module $pnp
 if ($ExportPath -and ((Test-Path -LiteralPath $ExportPath) -or !(Test-Path -LiteralPath ([IO.Path]::GetDirectoryName([IO.Path]::GetFullPath($ExportPath)))))) { throw 'Export requires a new filename in an existing directory.' }
-$audit=[ordered]@{schemaVersion='0.2-delegated';applicationVersion='0.1.0-alpha.9';auditId=[guid]::NewGuid().ToString();startedAt=[DateTime]::UtcNow.ToString('o');completedAt=$null;tenantId=$TenantId.ToString();clientId=$ClientId.ToString();accountObjectId=$null;scope=@{siteUrl=$target.SiteUrl;library=$LibraryName;depth='root web and selected library only';includeFiles=[bool]$IncludeFiles;itemLimit=$MaxItems};state='partial';resources=[Collections.Generic.List[object]]::new();grants=[Collections.Generic.List[object]]::new();sharePointGroups=[Collections.Generic.List[object]]::new();directoryGroups=@();coverage=[Collections.Generic.List[object]]::new()}
+$audit=[ordered]@{schemaVersion='0.2-delegated';applicationVersion='0.1.0-alpha.10';auditId=[guid]::NewGuid().ToString();startedAt=[DateTime]::UtcNow.ToString('o');completedAt=$null;tenantId=$TenantId.ToString();clientId=$ClientId.ToString();accountObjectId=$null;scope=@{siteUrl=$target.SiteUrl;library=$LibraryName;depth='root web and selected library only';includeFiles=[bool]$IncludeFiles;itemLimit=$MaxItems};state='partial';resources=[Collections.Generic.List[object]]::new();grants=[Collections.Generic.List[object]]::new();sharePointGroups=[Collections.Generic.List[object]]::new();directoryGroups=@();coverage=[Collections.Generic.List[object]]::new()}
 $connection=$null;$stage='Authentication';$web=$null;$list=$null
 function Coverage([string]$Operation,[string]$State,[string]$Reason) { $audit.coverage.Add([pscustomobject]@{operation=$Operation;state=$State;reason=$Reason;collectedAt=[DateTime]::UtcNow.ToString('o')}) }
 function Identity([string]$Resource,[string[]]$Audience) {
@@ -21,9 +21,13 @@ function Identity([string]$Resource,[string[]]$Audience) {
 }
 try {
     Write-Host '365Canopy delegated checkpoint — sign in to Microsoft and review the configured read permissions.'
-    Connect-PnPOnline -Url $target.SiteUrl -Tenant $TenantId.ToString() -ClientId $ClientId.ToString() -Interactive -ForceAuthentication:$ForceAuthentication
-    $connection=Get-PnPConnection
+    if ($ExistingConnection) { if(([string]$ExistingConnection.Url).TrimEnd('/') -ne $target.SiteUrl){throw "Connection URL mismatch."}; $connection=$ExistingConnection }
+    else {
+        Connect-PnPOnline -Url $target.SiteUrl -Tenant $TenantId.ToString() -ClientId $ClientId.ToString() -Interactive -ForceAuthentication:$ForceAuthentication
+        $connection=Get-PnPConnection
+    }
     $actor=Identity 'SharePoint' '00000003-0000-0ff1-ce00-000000000000'
+    if ($ExpectedObjectId -and $actor.objectId -ne $ExpectedObjectId) { throw "Signed-in account differs from tenant discovery." }
     $audit.accountObjectId=$actor.objectId
     $identityWeb=Get-PnPWeb -Includes CurrentUser -Connection $connection
     Get-PnPProperty -ClientObject $identityWeb.CurrentUser -Property Email,LoginName -Connection $connection | Out-Null
@@ -35,7 +39,7 @@ try {
     $stage='Root web'
     try {
         $web=Get-PnPWeb -Includes Id,Title,Url,HasUniqueRoleAssignments -Connection $connection
-        if ([string]$web.Url.TrimEnd('/') -ne $target.SiteUrl) { throw 'Returned web URL mismatch.' }
+        if ([string]$web.Url.TrimEnd('/') -ne $target.SiteUrl) { $web=$null; throw 'Returned web URL mismatch.' }
         $webId='web:'+ $web.Id
         $audit.resources.Add([pscustomobject]@{id=$webId;type='web';title=$web.Title;url=$web.Url;hasUniqueRoleAssignments=$web.HasUniqueRoleAssignments;sourceResourceId=$webId;collectedAt=[DateTime]::UtcNow.ToString('o')})
         Get-PnPProperty -ClientObject $web -Property RoleAssignments -Connection $connection | Out-Null
@@ -49,7 +53,7 @@ try {
         if (!$list -or [string]$list.BaseType -ne 'DocumentLibrary') { throw 'Selected document library not found.' }
         $listId='list:'+ $list.Id
         $source=if ($list.HasUniqueRoleAssignments) {$listId} elseif ($web) {$webId} else {$null}
-        $audit.resources.Add([pscustomobject]@{id=$listId;type='library';title=$list.Title;url=$list.RootFolder.ServerRelativeUrl;hasUniqueRoleAssignments=$list.HasUniqueRoleAssignments;sourceResourceId=$source;collectedAt=[DateTime]::UtcNow.ToString('o')})
+        $audit.resources.Add([pscustomobject]@{id=$listId;type='library';parentResourceId=$(if($web){$webId}else{$null});title=$list.Title;url=$list.RootFolder.ServerRelativeUrl;hasUniqueRoleAssignments=$list.HasUniqueRoleAssignments;sourceResourceId=$source;collectedAt=[DateTime]::UtcNow.ToString('o')})
         if ($list.HasUniqueRoleAssignments) {
             Get-PnPProperty -ClientObject $list -Property RoleAssignments -Connection $connection | Out-Null
             $listGrants=Get-CanopyResourceGrants $list $listId {param($a) Get-PnPProperty -ClientObject $a -Property Member,RoleDefinitionBindings -Connection $connection }
@@ -155,7 +159,7 @@ try {
     } else { Coverage 'Directory membership' 'notRequested' 'Expansion disabled or no non-owner directory group principals found in observed grants/members.' }
 } catch { Coverage $stage (Get-CanopyFailureState $_) ('Stage failed. Exception type: '+$_.Exception.GetType().FullName+'. Completed evidence retained; credentials and raw error bodies excluded.') }
 finally {
-    if ($connection) { try { Disconnect-PnPOnline; Coverage 'Disconnect' 'observed' 'PnP connection disconnected; no PersistLogin option was used. Browser/OS state can remain.' } catch { Coverage 'Disconnect' 'failed' 'Disconnect failed; exit the audit process to release session references.' } }
+    if ($connection -and !$ExistingConnection) { try { Disconnect-PnPOnline; Coverage 'Disconnect' 'observed' 'PnP connection disconnected; no PersistLogin option was used. Browser/OS state can remain.' } catch { Coverage 'Disconnect' 'failed' 'Disconnect failed; exit the audit process to release session references.' } }
     $connection=$null
     $audit.completedAt=[DateTime]::UtcNow.ToString('o')
     if(!$IncludeFiles){Coverage 'File permissions' 'notRequested' 'File review was not selected.'}

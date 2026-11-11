@@ -11,7 +11,7 @@ $files=Get-ChildItem -LiteralPath $root -File -Recurse -Force | Where-Object {$_
 foreach($file in $files){
     $text=[IO.File]::ReadAllText($file.FullName)
     foreach($match in [regex]::Matches($text,'(?i)https://([a-z0-9-]+)\.sharepoint\.com')){
-        if($match.Groups[1].Value -notin @('TENANT','fabrikam','fabrikam-admin','fabrikam-my','other-admin','contoso','contoso-admin')){throw "Tenant-specific SharePoint URL in publishable file: $($file.Name)"}
+        if($match.Groups[1].Value -notin @('TENANT','fabrikam','fabrikam-admin','fabrikam-my','other-admin','contoso','contoso-admin','contoso-my')){throw "Tenant-specific SharePoint URL in publishable file: $($file.Name)"}
     }
     foreach($match in [regex]::Matches($text,'(?i)[a-z0-9._%+-]+@([a-z0-9.-]+\.[a-z]{2,})')){
         if($match.Groups[1].Value -notin @('example.test','example.invalid','example.com','fabrikam.sharepoint.com')){throw "Non-synthetic email address in publishable file: $($file.Name)"}
