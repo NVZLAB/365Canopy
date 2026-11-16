@@ -1,18 +1,12 @@
-365Canopy 0.1.0-alpha.10 - tenant OneDrive audit
+365Canopy 0.1.0-alpha.11 - completed audit recovery
 
-Windows x64 desktop preview for observed SharePoint and OneDrive permissions.
+Completed desktop audits are saved locally before Results opens. Use Recover last audit
+to reopen the newest saved snapshot without rescanning. Recovery JSON contains private
+audit data, is not encrypted by Canopy, and remains in %LOCALAPPDATA%/365Canopy/Recovery
+until deleted. This does not resume interrupted scans or recover earlier alpha runs.
 
-NEW IN ALPHA.10
-Enter the tenant's main SharePoint root URL and select Audit all provisioned OneDrives.
-Canopy discovers provisioned drives on the selected commercial-cloud host, then audits
-each Documents library recursively. File review is optional. Results and exports
-retain readable evidence and report unreadable drives in Coverage.
-
-Discovery requires SharePoint administrator access. The signed-in account must already
-have access to each drive to read its permissions. Canopy does not grant access or
-change permissions. Multi-geo and unprovisioned drives are outside this preview.
-Synthetic batch, report and packaged startup checks passed; live tenant validation
-remains pending.
+Verified the file handoff with synthetic collection and opened a 40,000-file synthetic
+snapshot in the packaged desktop app. Live large-library validation remains pending.
 
 Includes recursive folders; optional file-level review; permission-source inheritance;
 classic SharePoint and Entra group members/owners; resolved basic profiles where allowed;

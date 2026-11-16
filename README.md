@@ -6,7 +6,7 @@
 its library, folders and optionally files, then follow permission grants through
 classic SharePoint groups and Microsoft Entra groups to the observed people.
 
-**Status: 0.1.0-alpha.10 - development preview.** This is observed permission evidence,
+**Status: 0.1.0-alpha.11 - development preview.** This is observed permission evidence,
 with explicit coverage gaps, rather than a complete effective-access evaluator.
 
 ![365Canopy Audit screen](docs/images/audit.png)
@@ -53,7 +53,7 @@ protected by Windows DPAPI for the current user. They contain connection metadat
 not credentials, tokens or audit results. Profiles are loaded explicitly and do not start an audit.
 Other processes running as the same Windows account are outside that protection boundary.
 
-Audit evidence remains in application memory until explicit export. Microsoft/browser sign-in
+Completed desktop audits are saved as private recovery JSON under `%LOCALAPPDATA%/365Canopy/Recovery`. Use **Recover last audit** to reopen the newest snapshot. These files are not encrypted by Canopy and remain until you delete them. Microsoft/browser sign-in
 state can persist separately. Exports contain tenant identities and permissions: keep them private.
 
 File contents, versions, sharing-link details and policy-aware effective access are outside this

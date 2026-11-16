@@ -52,6 +52,15 @@ try {
     }
     if(!($audit.coverage | Where-Object {$_.operation -eq 'Other OneDrive hosts' -and $_.state -eq 'skipped'})){throw 'Missing excluded host coverage.'}
     if(@($audit.coverage | Where-Object {$_.operation -like 'OneDrive: *' -and $_.state -eq 'failed'}).Count -ne 2){throw 'Expected blocked and wrong-account drives in coverage.'}
+    $result=Join-Path $root ('work/audit-recovery-'+[guid]::NewGuid().ToString('N')+'.json')
+    try {
+        $output=& (Join-Path $root 'src/Canopy.Checkpoint/Desktop-Audit.ps1') -SiteUrl 'https://contoso.sharepoint.com' -TenantId $tenant -ClientId $client -AllOneDrives -PnPModulePath $fixture -ResultPath $result
+        if($output -or (Test-Path ($result+'.pending'))){throw 'Recovery must publish a completed file and send no JSON through stdout.'}
+        $saved=Get-Content -LiteralPath $result -Raw | ConvertFrom-Json
+        if($saved.resources.Count -ne 5 -or $saved.scope.completed -ne 2){throw 'Recovery snapshot lost audit evidence.'}
+    } finally {
+        if(Test-Path -LiteralPath $result){Remove-Item -LiteralPath $result}
+    }
     Write-Host 'OneDrive batch synthetic checks passed: discovery, deduplication, same-host reuse, account binding, per-drive isolation, partial results and desktop JSON.'
 } finally {
     Remove-Module ([IO.Path]::GetFileNameWithoutExtension($fixture)) -ErrorAction SilentlyContinue

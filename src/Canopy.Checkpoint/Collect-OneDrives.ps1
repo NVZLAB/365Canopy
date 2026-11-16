@@ -10,7 +10,7 @@ $root=[uri]$target.SiteUrl
 if($root.AbsolutePath -ne '/'){throw 'OneDrive discovery requires the tenant SharePoint root URL.'}
 $personalHost=$root.Host.Replace('.sharepoint.com','-my.sharepoint.com')
 $audit=[ordered]@{
-    schemaVersion='0.2-delegated';applicationVersion='0.1.0-alpha.10';auditId=[guid]::NewGuid().ToString()
+    schemaVersion='0.2-delegated';applicationVersion='0.1.0-alpha.11';auditId=[guid]::NewGuid().ToString()
     startedAt=[DateTime]::UtcNow.ToString('o');completedAt=$null;tenantId=$TenantId.ToString();clientId=$ClientId.ToString()
     accountObjectId=$null;accountLogin=$null;state='partial'
     scope=@{siteUrl=$target.SiteUrl;library='OneDrive document libraries';depth='Provisioned OneDrives returned by tenant discovery';includeFiles=[bool]$IncludeFiles;discovered=0;attempted=0;completed=0}
